@@ -28,7 +28,7 @@ function buy() {
       <span class="text-2xl shrink-0">{{ upgrade.emoji }}</span>
       <div class="flex-1 min-w-0">
         <div class="font-semibold text-white text-sm">{{ upgrade.name }}</div>
-        <div class="text-slate-400 text-xs mt-0.5">{{ upgrade.description }}</div>
+        <div class="text-slate-400 text-sm mt-0.5">{{ upgrade.description }}</div>
       </div>
     </div>
 

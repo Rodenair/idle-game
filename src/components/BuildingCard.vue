@@ -30,7 +30,7 @@ function buy() {
 
 <template>
   <div
-    class="flex items-center gap-3 p-3 rounded-xl border transition-colors"
+    class="flex items-start gap-3 p-3 rounded-xl border transition-colors"
     :class="canAfford
       ? 'bg-slate-800 border-slate-600 hover:border-amber-500/50'
       : 'bg-slate-800/50 border-slate-700 opacity-70'"
@@ -46,8 +46,8 @@ function buy() {
           {{ owned }}
         </span>
       </div>
-      <div class="text-slate-400 text-xs mt-0.5 truncate">{{ building.description }}</div>
-      <div v-if="outputLabel" class="text-slate-500 text-xs mt-0.5">{{ outputLabel }}</div>
+      <div class="text-slate-400 text-sm mt-0.5">{{ building.description }}</div>
+      <div v-if="outputLabel" class="text-slate-500 text-xs mt-1">{{ outputLabel }}</div>
     </div>
 
     <!-- Buy button -->
