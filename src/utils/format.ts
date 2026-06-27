@@ -7,6 +7,10 @@ export function formatNum(n: number): string {
   return Math.floor(n).toString()
 }
 
+export function formatInt(n: number): string {
+  return Math.floor(n).toLocaleString('en-US')
+}
+
 export function formatRate(n: number): string {
   if (n === 0) return '0'
   if (n < 0.01) return n.toFixed(3)

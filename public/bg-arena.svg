@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900">
+  <defs>
+    <!-- Stone tile pattern -->
+    <pattern id="tiles" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <rect width="60" height="60" fill="#0b0918"/>
+      <rect x="2" y="2" width="56" height="56" fill="#0f0d20" rx="3"/>
+      <rect x="2" y="2" width="56" height="2"  fill="#1a1735" opacity="0.6"/>
+      <rect x="2" y="2" width="2"  height="56" fill="#1a1735" opacity="0.6"/>
+    </pattern>
+
+    <!-- Hex rune ring -->
+    <pattern id="runes" x="0" y="0" width="120" height="104" patternUnits="userSpaceOnUse">
+      <!-- Hexagon outline -->
+      <polygon
+        points="60,2 118,32 118,72 60,102 2,72 2,32"
+        fill="none"
+        stroke="rgba(99,102,241,0.12)"
+        stroke-width="1"
+      />
+      <!-- Inner hex -->
+      <polygon
+        points="60,18 100,40 100,64 60,86 20,64 20,40"
+        fill="none"
+        stroke="rgba(139,92,246,0.07)"
+        stroke-width="1"
+      />
+    </pattern>
+
+    <!-- Center spotlight (purple magic glow) -->
+    <radialGradient id="glow" cx="50%" cy="38%" r="45%">
+      <stop offset="0%"   stop-color="#4c1d95" stop-opacity="0.35"/>
+      <stop offset="50%"  stop-color="#1e1b4b" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Vignette darkens all edges -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="75%">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+      <stop offset="75%"  stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85"/>
+    </radialGradient>
+
+    <!-- Top fade (header zone) -->
+    <linearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#000000" stop-opacity="0.7"/>
+      <stop offset="25%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 1: stone floor tiles -->
+  <rect width="600" height="900" fill="url(#tiles)"/>
+
+  <!-- Layer 2: hex rune overlay -->
+  <rect width="600" height="900" fill="url(#runes)" opacity="0.9"/>
+
+  <!-- Layer 3: crack decorations -->
+  <g stroke="#07060f" stroke-linecap="round" opacity="0.7">
+    <polyline points="80,140 95,155 88,172"  stroke-width="2"/>
+    <polyline points="420,90  435,108 430,125" stroke-width="1.5"/>
+    <polyline points="30,400 50,415 45,440"  stroke-width="2"/>
+    <polyline points="550,310 535,330 540,355" stroke-width="1.5"/>
+    <polyline points="220,700 235,718 228,740" stroke-width="2"/>
+    <polyline points="480,650 465,670 470,695" stroke-width="1.5"/>
+  </g>
+
+  <!-- Layer 4: arena circle / battle ring on floor -->
+  <circle cx="300" cy="340" r="180"
+    fill="none"
+    stroke="rgba(139,92,246,0.18)"
+    stroke-width="2"
+    stroke-dasharray="12 8"
+  />
+  <circle cx="300" cy="340" r="130"
+    fill="none"
+    stroke="rgba(99,102,241,0.12)"
+    stroke-width="1"
+  />
+
+  <!-- Rune symbols at cardinal points of the ring -->
+  <g fill="none" stroke="rgba(167,139,250,0.25)" stroke-width="1.5">
+    <!-- North -->
+    <polygon points="300,142 308,160 300,156 292,160" />
+    <!-- South -->
+    <polygon points="300,538 308,520 300,524 292,520" />
+    <!-- East -->
+    <polygon points="498,340 480,332 484,340 480,348" />
+    <!-- West -->
+    <polygon points="102,340 120,332 116,340 120,348" />
+  </g>
+
+  <!-- Layer 5: glow in center arena -->
+  <rect width="600" height="900" fill="url(#glow)"/>
+
+  <!-- Layer 6: vignette edges -->
+  <rect width="600" height="900" fill="url(#vignette)"/>
+
+  <!-- Layer 7: top fade so header blends in -->
+  <rect width="600" height="160" fill="url(#topFade)"/>
+</svg>

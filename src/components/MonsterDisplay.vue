@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { formatNum } from '@/utils/format'
+import { formatInt } from '@/utils/format'
 
 const store = useGameStore()
 
@@ -35,8 +35,8 @@ const hpBarColor = computed(() => {
     <!-- HP Bar -->
     <div class="w-64 flex flex-col gap-1">
       <div class="flex justify-between text-xs text-slate-400 tabular-nums">
-        <span>{{ formatNum(Math.floor(store.monsterCurrentHp)) }}</span>
-        <span>{{ formatNum(store.activeMonsterMaxHp) }} HP</span>
+        <span>{{ formatInt(store.monsterCurrentHp) }}</span>
+        <span>{{ formatInt(store.activeMonsterMaxHp) }} HP</span>
       </div>
       <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
         <div
