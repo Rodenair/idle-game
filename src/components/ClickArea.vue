@@ -6,33 +6,33 @@ import { formatNum } from '@/utils/format'
 import MonsterDisplay from './MonsterDisplay.vue'
 
 const store = useGameStore()
-const { playHit } = useHitSound()
+const { playHit, playCritHit } = useHitSound()
 
 interface FloatText {
   id: number
   x: number
   y: number
   value: string
+  isCrit: boolean
 }
 
 const floatTexts = ref<FloatText[]>([])
 let nextId = 0
 
 function handleClick(e: PointerEvent) {
-  store.clickMonster()
-  playHit()
+  const { damage, isCrit } = store.clickMonster()
+  isCrit ? playCritHit() : playHit()
 
-  // Spawn floating +N text at click position
   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
   const x = e.clientX - rect.left
   const y = e.clientY - rect.top
 
-  const id = nextId++
   floatTexts.value.push({
-    id,
+    id: nextId++,
     x,
     y,
-    value: '+' + formatNum(store.clickPower),
+    value: (isCrit ? '💥 ' : '+') + formatNum(damage),
+    isCrit,
   })
 }
 
@@ -65,13 +65,25 @@ function removeFloat(id: number) {
         <span class="tabular-nums text-amber-400 font-semibold">{{ formatNum(store.clickPower) }}</span>
         <span>damage per tap</span>
       </div>
+
+      <!-- Crit stats (only shown after Precision Strike upgrade) -->
+      <div
+        v-if="store.critChance > 0"
+        class="mt-1 flex items-center gap-1.5 text-xs text-yellow-400 pointer-events-none drop-shadow"
+      >
+        <span>🎯</span>
+        <span>{{ Math.round(store.critChance * 100) }}% crit · {{ store.critMultiplier }}× damage</span>
+      </div>
     </div>
 
     <!-- Floating damage texts (above overlay too) -->
     <div
       v-for="ft in floatTexts"
       :key="ft.id"
-      class="absolute z-20 pointer-events-none font-bold text-xl text-amber-300 animate-float-up drop-shadow-lg"
+      class="absolute z-20 pointer-events-none font-bold drop-shadow-lg"
+      :class="ft.isCrit
+        ? 'text-3xl text-yellow-300 animate-crit-float-up'
+        : 'text-xl text-amber-300 animate-float-up'"
       :style="{ left: ft.x + 'px', top: ft.y + 'px', transform: 'translate(-50%, -50%)' }"
       @animationend="removeFloat(ft.id)"
     >

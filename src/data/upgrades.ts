@@ -8,6 +8,8 @@ export interface UpgradeApplyTarget {
   clickPowerMultiplier: number
   buildingMultipliers: Record<string, number>
   autoClickRate: number
+  critChance: number
+  critMultiplier: number
 }
 
 export interface UpgradeDef {
@@ -131,6 +133,32 @@ export const UPGRADES: UpgradeDef[] = [
     costParts: 50,
     unlockCondition: (s) => s.monstersDefeated >= 25,
     apply: (t) => { t.autoClickRate += 4 },
+  },
+  {
+    id: 'crit_1',
+    name: 'Precision Strike',
+    emoji: '🎯',
+    description: '10% chance to deal 2× damage on each tap.',
+    costScrap: 750,
+    costParts: 8,
+    unlockCondition: (s) => s.monstersDefeated >= 15,
+    apply: (t) => {
+      t.critChance += 0.10
+      t.critMultiplier = Math.max(t.critMultiplier, 2)
+    },
+  },
+  {
+    id: 'crit_2',
+    name: 'Critical Matrix',
+    emoji: '💥',
+    description: 'Crit chance rises to 25% and crit damage to 3×.',
+    costScrap: 8000,
+    costParts: 60,
+    unlockCondition: (s) => s.monstersDefeated >= 60,
+    apply: (t) => {
+      t.critChance += 0.15
+      t.critMultiplier = Math.max(t.critMultiplier, 3)
+    },
   },
   {
     id: 'all_2x',

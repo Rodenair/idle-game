@@ -41,6 +41,8 @@ export const useGameStore = defineStore('game', () => {
       clickPowerMultiplier: 1,
       buildingMultipliers: Object.fromEntries(BUILDINGS.map((b) => [b.id, 1])),
       autoClickRate: 0,
+      critChance: 0,
+      critMultiplier: 1,
     }
     for (const id of purchasedUpgradeIds.value) {
       const def = UPGRADES.find((u) => u.id === id)
@@ -74,6 +76,8 @@ export const useGameStore = defineStore('game', () => {
   })
 
   const autoClickRate = computed(() => upgradeEffects.value.autoClickRate)
+  const critChance = computed(() => upgradeEffects.value.critChance)
+  const critMultiplier = computed(() => upgradeEffects.value.critMultiplier)
 
   const activeMonsterDef = computed(() => {
     const idx = (monsterLevel.value - 1) % MONSTERS.length
@@ -127,12 +131,13 @@ export const useGameStore = defineStore('game', () => {
     spawnMonster()
   }
 
-  function clickMonster() {
-    if (monsterCurrentHp.value <= 0) return
-    monsterCurrentHp.value = Math.max(0, monsterCurrentHp.value - clickPower.value)
-    if (monsterCurrentHp.value <= 0) {
-      defeatMonster()
-    }
+  function clickMonster(): { damage: number; isCrit: boolean } {
+    if (monsterCurrentHp.value <= 0) return { damage: 0, isCrit: false }
+    const isCrit = critChance.value > 0 && Math.random() < critChance.value
+    const damage = isCrit ? clickPower.value * critMultiplier.value : clickPower.value
+    monsterCurrentHp.value = Math.max(0, monsterCurrentHp.value - damage)
+    if (monsterCurrentHp.value <= 0) defeatMonster()
+    return { damage, isCrit }
   }
 
   function addScrap(amount: number) {
@@ -233,6 +238,8 @@ export const useGameStore = defineStore('game', () => {
     scrapPerSec,
     partsPerSec,
     autoClickRate,
+    critChance,
+    critMultiplier,
     activeMonsterDef,
     activeMonsterMaxHp,
     availableUpgrades,

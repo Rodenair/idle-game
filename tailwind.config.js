@@ -24,9 +24,15 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%':      { transform: 'translateY(-8px)' },
         },
+        critFloatUp: {
+          '0%':   { opacity: '1', transform: 'translateY(0) scale(1.4)' },
+          '20%':  { opacity: '1', transform: 'translateY(-24px) scale(1.9)' },
+          '100%': { opacity: '0', transform: 'translateY(-110px) scale(1.2)' },
+        },
       },
       animation: {
         'float-up':        'floatUp 0.9s ease-out forwards',
+        'crit-float-up':   'critFloatUp 1.1s ease-out forwards',
         'monster-shake':   'monsterShake 0.3s ease-in-out',
         'monster-bounce':  'monsterBounce 2s ease-in-out infinite',
       },
