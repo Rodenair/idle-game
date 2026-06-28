@@ -37,6 +37,7 @@ export const useGameStore = defineStore('game', () => {
 
   // Visual signals
   const hitSignal = ref(0)
+  const deathSignal = ref(0)
   const autoAttackSignal = ref(0)
 
   // ── Computed: upgrade effects replayed from scratch on each purchase ──────
@@ -118,6 +119,7 @@ export const useGameStore = defineStore('game', () => {
   }
 
   function defeatMonster() {
+    deathSignal.value++
     const def = activeMonsterDef.value
     const lvl = monsterLevel.value
     const scrapReward = Math.max(
@@ -255,6 +257,7 @@ export const useGameStore = defineStore('game', () => {
     availableUpgrades,
     // Signals
     hitSignal,
+    deathSignal,
     autoAttackSignal,
     // Methods
     buildingCost,

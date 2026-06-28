@@ -31,6 +31,7 @@ const hpBarGlow = computed(() => {
       :monster-id="store.activeMonsterDef.id"
       :hp-percent="hpPercent"
       :hit-signal="store.hitSignal"
+      :death-signal="store.deathSignal"
     />
 
     <!-- Name & Level -->
@@ -55,10 +56,6 @@ const hpBarGlow = computed(() => {
           :class="[hpBarColor, hpBarGlow]"
           :style="{ width: hpPercent + '%' }"
         />
-      </div>
-      <!-- HP percentage label at critical -->
-      <div v-if="hpPercent <= 25" class="text-center text-xs text-red-400 font-bold animate-pulse">
-        CRITICAL — {{ Math.round(hpPercent) }}%
       </div>
     </div>
   </div>

@@ -44,12 +44,12 @@ function removeFloat(id: number) {
 
 <template>
   <div
-    class="relative flex flex-col items-center select-none touch-none overflow-hidden cursor-pointer bg-cover bg-center bg-no-repeat min-h-full"
-    style="-webkit-tap-highlight-color: transparent; background-image: url('/bg-arena.svg')"
+    class="relative flex flex-col items-center select-none touch-none overflow-hidden cursor-pointer bg-cover bg-center bg-no-repeat flex-1"
+    style="-webkit-tap-highlight-color: transparent; background-image: url('/bg-arena.png')"
     @pointerdown.prevent="handleClick"
   >
     <!-- Dark overlay -->
-    <div class="absolute inset-0 bg-slate-900/50 pointer-events-none" />
+    <div class="absolute inset-0 bg-black/40 pointer-events-none" />
 
     <!-- Content above overlay -->
     <div class="relative z-10 flex flex-col items-center w-full">

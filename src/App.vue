@@ -40,7 +40,7 @@ function confirmReset() {
     <GameHeader />
 
     <!-- Scrollable content -->
-    <main class="flex-1 overflow-y-auto overscroll-contain">
+    <main class="flex-1 min-h-0 overflow-y-auto overscroll-contain flex flex-col">
       <ClickArea v-if="activeTab === 'fight'" />
       <BuildingsPanel v-if="activeTab === 'build'" />
       <UpgradesPanel v-if="activeTab === 'upgrade'" />
