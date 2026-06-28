@@ -32,7 +32,7 @@ function handleClick(e: PointerEvent) {
     id: nextId++,
     x,
     y,
-    value: (isCrit ? '💥 ' : '+') + formatNum(damage),
+    value: formatNum(damage),
     isCrit,
   })
 }
@@ -52,40 +52,29 @@ function removeFloat(id: number) {
     <div class="absolute inset-0 bg-black/40 pointer-events-none" />
 
     <!-- Content above overlay -->
-    <div class="relative z-10 flex flex-col items-center w-full">
-      <MonsterDisplay />
+    <div class="relative z-10 flex flex-col items-center w-full h-full">
+      <MonsterDisplay class="flex-1 min-h-0 w-full" />
 
       <!-- Companion bots row (below monster, above tap hint) -->
       <CompanionBots />
 
-      <!-- Tap hint -->
-      <div class="text-slate-400 text-sm mt-3 pointer-events-none drop-shadow">
-        Tap to attack!
-      </div>
+      <!-- Bottom info cluster -->
+      <div class="flex flex-col items-center gap-1 mt-2 pointer-events-none">
+        <div
+          v-if="store.autoClickRate > 0"
+          class="flex items-center gap-1.5 text-xs text-cyan-400 drop-shadow"
+        >
+          <span>🤖</span>
+          <span>{{ store.autoClickRate }}/s auto-attack</span>
+        </div>
 
-      <!-- Click power info -->
-      <div class="mt-2 flex items-center gap-1.5 text-sm text-slate-300 pointer-events-none drop-shadow">
-        <span>⚔️</span>
-        <span class="tabular-nums text-amber-400 font-semibold">{{ formatNum(store.clickPower) }}</span>
-        <span>damage per tap</span>
-      </div>
-
-      <!-- Auto-click rate (shown when bots are active) -->
-      <div
-        v-if="store.autoClickRate > 0"
-        class="mt-1 flex items-center gap-1.5 text-xs text-cyan-400 pointer-events-none drop-shadow"
-      >
-        <span>🤖</span>
-        <span>{{ store.autoClickRate }}/s auto-attack</span>
-      </div>
-
-      <!-- Crit stats -->
-      <div
-        v-if="store.critChance > 0"
-        class="mt-1 flex items-center gap-1.5 text-xs text-yellow-400 pointer-events-none drop-shadow"
-      >
-        <span>🎯</span>
-        <span>{{ Math.round(store.critChance * 100) }}% crit · {{ store.critMultiplier }}× damage</span>
+        <div
+          v-if="store.critChance > 0"
+          class="flex items-center gap-1.5 text-xs text-yellow-400 drop-shadow"
+        >
+          <span>🎯</span>
+          <span>{{ Math.round(store.critChance * 100) }}% crit · {{ store.critMultiplier }}× damage</span>
+        </div>
       </div>
     </div>
 

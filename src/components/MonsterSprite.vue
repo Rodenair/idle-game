@@ -31,11 +31,11 @@ const damageClass = computed(() => {
 </script>
 
 <template>
-  <div class="relative select-none">
+  <div class="relative select-none h-full flex items-center justify-center">
     <img
       :src="currentSrc"
       :class="[
-        'w-40 h-48 object-contain drop-shadow-2xl',
+        'h-full w-auto max-w-[90vw] object-contain drop-shadow-2xl',
         hitFlash ? 'sprite-hit-flash' : '',
         state !== 'death' ? damageClass : 'sprite-dying',
       ]"

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { formatInt } from '@/utils/format'
 import MonsterSprite from './MonsterSprite.vue'
 
 const store = useGameStore()
@@ -25,32 +24,28 @@ const hpBarGlow = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-3 py-4">
-    <!-- Monster sprite -->
-    <MonsterSprite
-      :monster-id="store.activeMonsterDef.id"
-      :hp-percent="hpPercent"
-      :hit-signal="store.hitSignal"
-      :death-signal="store.deathSignal"
-    />
+  <div class="flex flex-col items-center w-full h-full">
+    <!-- Sprite fills all available vertical space -->
+    <div class="flex-1 min-h-0 flex items-center justify-center w-full">
+      <MonsterSprite
+        :monster-id="store.activeMonsterDef.id"
+        :hp-percent="hpPercent"
+        :hit-signal="store.hitSignal"
+        :death-signal="store.deathSignal"
+      />
+    </div>
 
     <!-- Name & Level -->
-    <div class="flex items-center gap-2">
-      <span class="text-white font-bold text-xl drop-shadow">{{ store.activeMonsterDef.name }}</span>
-      <span class="bg-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-lg">
+    <div class="flex items-center gap-2 pt-2">
+      <span class="text-white font-bold text-2xl drop-shadow">{{ store.activeMonsterDef.name }}</span>
+      <span class="bg-purple-600 text-white text-sm font-bold px-2.5 py-0.5 rounded-full shadow-lg">
         Lv {{ store.monsterLevel }}
       </span>
     </div>
 
     <!-- HP Bar -->
-    <div class="w-64 flex flex-col gap-1">
-      <div class="flex justify-between text-xs text-slate-400 tabular-nums">
-        <span class="font-semibold" :class="hpPercent <= 25 ? 'text-red-400' : ''">
-          {{ formatInt(store.monsterCurrentHp) }}
-        </span>
-        <span>{{ formatInt(store.activeMonsterMaxHp) }} HP</span>
-      </div>
-      <div class="h-3.5 bg-slate-700/80 rounded-full overflow-hidden border border-slate-600/50">
+    <div class="w-full px-5 pt-2 pb-3">
+      <div class="h-4 bg-slate-700/80 rounded-full overflow-hidden border border-slate-600/50">
         <div
           class="h-full rounded-full transition-all duration-75"
           :class="[hpBarColor, hpBarGlow]"

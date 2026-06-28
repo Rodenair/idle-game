@@ -56,7 +56,8 @@ export const useGameStore = defineStore('game', () => {
     return target
   })
 
-  const clickPower = computed(() => upgradeEffects.value.clickPowerMultiplier)
+  const BASE_CLICK_POWER = 5
+  const clickPower = computed(() => BASE_CLICK_POWER * upgradeEffects.value.clickPowerMultiplier)
 
   const scrapPerSec = computed(() => {
     let total = 0

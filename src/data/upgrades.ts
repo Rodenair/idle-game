@@ -29,7 +29,7 @@ export const UPGRADES: UpgradeDef[] = [
     name: 'Reinforced Claws',
     emoji: '🦾',
     description: 'Your robots hit twice as hard. Click power ×2.',
-    costScrap: 50,
+    costScrap: 25,
     costParts: 0,
     unlockCondition: (s) => s.monstersDefeated >= 1,
     apply: (t) => { t.clickPowerMultiplier *= 2 },
