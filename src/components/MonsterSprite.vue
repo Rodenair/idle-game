@@ -337,12 +337,6 @@ const stage = computed(() => {
       </g>
     </svg>
 
-    <!-- critical HP pulse ring -->
-    <div
-      v-if="stage >= 3"
-      class="absolute inset-0 rounded-full pointer-events-none"
-      style="animation: critRing 0.8s ease-out infinite; border: 2px solid #ef4444; opacity: 0;"
-    />
   </div>
 </template>
 
@@ -354,7 +348,7 @@ svg {
 .sprite-hurt     { filter: brightness(0.88) saturate(0.82); }
 .sprite-damaged  { filter: brightness(0.76) saturate(0.6); }
 .sprite-critical {
-  animation: critPulse 0.8s ease-in-out infinite alternate;
+  animation: critPulse 2s ease-in-out infinite alternate;
 }
 .sprite-hit {
   filter: brightness(4) saturate(0.1) !important;
@@ -362,11 +356,7 @@ svg {
 }
 
 @keyframes critPulse {
-  from { filter: brightness(0.65) saturate(0.3); }
-  to   { filter: brightness(0.95) saturate(0.65) hue-rotate(18deg); }
-}
-@keyframes critRing {
-  0%   { opacity: 0.8; transform: scale(0.8); }
-  100% { opacity: 0; transform: scale(1.5); }
+  from { filter: brightness(0.6) saturate(0.25); }
+  to   { filter: brightness(0.72) saturate(0.35); }
 }
 </style>
