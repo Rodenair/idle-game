@@ -61,14 +61,6 @@ function removeFloat(id: number) {
       <!-- Bottom info cluster -->
       <div class="flex flex-col items-center gap-1 mt-2 pointer-events-none">
         <div
-          v-if="store.autoClickRate > 0"
-          class="flex items-center gap-1.5 text-xs text-cyan-400 drop-shadow"
-        >
-          <span>🤖</span>
-          <span>{{ store.autoClickRate }}/s auto-attack</span>
-        </div>
-
-        <div
           v-if="store.critChance > 0"
           class="flex items-center gap-1.5 text-xs text-yellow-400 drop-shadow"
         >
