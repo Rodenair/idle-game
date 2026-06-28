@@ -142,7 +142,7 @@ export const useGameStore = defineStore('game', () => {
     const isCrit = critChance.value > 0 && Math.random() < critChance.value
     const damage = isCrit ? clickPower.value * critMultiplier.value : clickPower.value
     monsterCurrentHp.value = Math.max(0, monsterCurrentHp.value - damage)
-    hitSignal.value++
+    if (monsterCurrentHp.value > 0) hitSignal.value++
     if (monsterCurrentHp.value <= 0) defeatMonster()
     return { damage, isCrit }
   }

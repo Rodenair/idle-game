@@ -45,7 +45,7 @@ const hpBarGlow = computed(() => {
     <!-- HP Bar -->
     <div class="w-64 flex flex-col gap-1">
       <div class="flex justify-between text-xs text-slate-400 tabular-nums">
-        <span class="font-semibold" :class="hpPercent <= 25 ? 'text-red-400 animate-pulse' : ''">
+        <span class="font-semibold" :class="hpPercent <= 25 ? 'text-red-400' : ''">
           {{ formatInt(store.monsterCurrentHp) }}
         </span>
         <span>{{ formatInt(store.activeMonsterMaxHp) }} HP</span>
