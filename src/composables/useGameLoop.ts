@@ -25,7 +25,7 @@ export function useGameLoop() {
     if (store.autoClickRate > 0) {
       autoClickAccum += store.autoClickRate * deltaTime
       while (autoClickAccum >= 1) {
-        store.clickMonster()
+        store.autoClickMonster()
         autoClickAccum -= 1
       }
     }

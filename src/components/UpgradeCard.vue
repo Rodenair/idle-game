@@ -4,7 +4,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { formatNum } from '@/utils/format'
 import type { UpgradeDef } from '@/data/upgrades'
 
-const props = defineProps<{ upgrade: UpgradeDef }>()
+const props = defineProps<{ upgrade: UpgradeDef; purchased: boolean }>()
 
 const store = useGameStore()
 
@@ -18,10 +18,29 @@ function buy() {
 </script>
 
 <template>
+  <!-- Purchased state -->
   <div
+    v-if="purchased"
+    class="flex items-start gap-2 p-3 rounded-xl border border-green-800/40 bg-slate-800/30"
+  >
+    <span class="text-2xl shrink-0 opacity-60">{{ upgrade.emoji }}</span>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-400 text-sm">{{ upgrade.name }}</span>
+        <span class="text-xs bg-green-900/50 text-green-400 font-bold px-2 py-0.5 rounded-full border border-green-700/40">
+          ✓ Owned
+        </span>
+      </div>
+      <div class="text-slate-600 text-xs mt-0.5">{{ upgrade.description }}</div>
+    </div>
+  </div>
+
+  <!-- Available (not yet purchased) state -->
+  <div
+    v-else
     class="flex flex-col gap-2 p-3 rounded-xl border transition-colors"
     :class="canAfford
-      ? 'bg-slate-800 border-slate-600 hover:border-cyan-500/50'
+      ? 'bg-slate-800 border-slate-600 hover:border-cyan-500/50 animate-upgrade-glow'
       : 'bg-slate-800/50 border-slate-700 opacity-60'"
   >
     <div class="flex items-start gap-2">

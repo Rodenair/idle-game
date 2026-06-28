@@ -35,6 +35,10 @@ export const useGameStore = defineStore('game', () => {
   const monsterCurrentHp = ref(0)
   const monstersDefeated = ref(0)
 
+  // Visual signals
+  const hitSignal = ref(0)
+  const autoAttackSignal = ref(0)
+
   // ── Computed: upgrade effects replayed from scratch on each purchase ──────
   const upgradeEffects = computed<UpgradeApplyTarget>(() => {
     const target: UpgradeApplyTarget = {
@@ -136,8 +140,14 @@ export const useGameStore = defineStore('game', () => {
     const isCrit = critChance.value > 0 && Math.random() < critChance.value
     const damage = isCrit ? clickPower.value * critMultiplier.value : clickPower.value
     monsterCurrentHp.value = Math.max(0, monsterCurrentHp.value - damage)
+    hitSignal.value++
     if (monsterCurrentHp.value <= 0) defeatMonster()
     return { damage, isCrit }
+  }
+
+  function autoClickMonster(): { damage: number; isCrit: boolean } {
+    autoAttackSignal.value++
+    return clickMonster()
   }
 
   function addScrap(amount: number) {
@@ -243,9 +253,13 @@ export const useGameStore = defineStore('game', () => {
     activeMonsterDef,
     activeMonsterMaxHp,
     availableUpgrades,
+    // Signals
+    hitSignal,
+    autoAttackSignal,
     // Methods
     buildingCost,
     clickMonster,
+    autoClickMonster,
     buyBuilding,
     buyUpgrade,
     tick,

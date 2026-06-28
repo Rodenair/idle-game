@@ -4,6 +4,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { useHitSound } from '@/composables/useHitSound'
 import { formatNum } from '@/utils/format'
 import MonsterDisplay from './MonsterDisplay.vue'
+import CompanionBots from './CompanionBots.vue'
 
 const store = useGameStore()
 const { playHit, playCritHit } = useHitSound()
@@ -47,26 +48,38 @@ function removeFloat(id: number) {
     style="-webkit-tap-highlight-color: transparent; background-image: url('/bg-arena.svg')"
     @pointerdown.prevent="handleClick"
   >
-    <!-- Dark overlay so text stays readable over the background -->
-    <div class="absolute inset-0 bg-slate-900/55 pointer-events-none" />
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-slate-900/50 pointer-events-none" />
 
-    <!-- All content above the overlay -->
+    <!-- Content above overlay -->
     <div class="relative z-10 flex flex-col items-center w-full">
       <MonsterDisplay />
 
+      <!-- Companion bots row (below monster, above tap hint) -->
+      <CompanionBots />
+
       <!-- Tap hint -->
-      <div class="text-slate-400 text-sm mt-2 pointer-events-none drop-shadow">
+      <div class="text-slate-400 text-sm mt-3 pointer-events-none drop-shadow">
         Tap to attack!
       </div>
 
       <!-- Click power info -->
-      <div class="mt-3 flex items-center gap-1.5 text-sm text-slate-300 pointer-events-none drop-shadow">
+      <div class="mt-2 flex items-center gap-1.5 text-sm text-slate-300 pointer-events-none drop-shadow">
         <span>⚔️</span>
         <span class="tabular-nums text-amber-400 font-semibold">{{ formatNum(store.clickPower) }}</span>
         <span>damage per tap</span>
       </div>
 
-      <!-- Crit stats (only shown after Precision Strike upgrade) -->
+      <!-- Auto-click rate (shown when bots are active) -->
+      <div
+        v-if="store.autoClickRate > 0"
+        class="mt-1 flex items-center gap-1.5 text-xs text-cyan-400 pointer-events-none drop-shadow"
+      >
+        <span>🤖</span>
+        <span>{{ store.autoClickRate }}/s auto-attack</span>
+      </div>
+
+      <!-- Crit stats -->
       <div
         v-if="store.critChance > 0"
         class="mt-1 flex items-center gap-1.5 text-xs text-yellow-400 pointer-events-none drop-shadow"
@@ -76,7 +89,7 @@ function removeFloat(id: number) {
       </div>
     </div>
 
-    <!-- Floating damage texts (above overlay too) -->
+    <!-- Floating damage texts -->
     <div
       v-for="ft in floatTexts"
       :key="ft.id"
